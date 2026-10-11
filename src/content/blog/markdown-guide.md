@@ -1,7 +1,7 @@
 ---
 title: astroで作成したページをgithub pagesにデプロイする
 description: astroで作成したページをgithub pagesにデプロイする方法のメモ
-pubDate: 2026-10-11
+pubDate: 2026-10-11T21:00:00Z
 tags:
   - astro
   - dev
