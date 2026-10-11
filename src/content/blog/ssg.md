@@ -1,7 +1,7 @@
 ---
 title: SSGの選定
 description: ブログ作成にあたり静的サイトジェネレータの選定
-pubDate: 2026-10-11
+pubDate: 2026-10-11T22:30:00Z
 tags:
   - dev
 draft: false
