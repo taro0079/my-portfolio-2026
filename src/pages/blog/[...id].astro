@@ -1,0 +1,51 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { blogUrl, formatDate, getPublishedPosts } from '../../lib/blog';
+
+export async function getStaticPaths() {
+  return (await getPublishedPosts()).map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+interface Props { post: CollectionEntry<'blog'>; }
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BlogLayout title={post.data.title} description={post.data.description}>
+  <article>
+    <header class="page-header">
+      <a class="back-link" href={blogUrl()}>← 記事一覧</a>
+      <h1>{post.data.title}</h1>
+      <p class="date">
+        公開日：<time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+        {post.data.updatedDate && (
+          <span class="updated">更新日：<time datetime={post.data.updatedDate.toISOString()}>{formatDate(post.data.updatedDate)}</time></span>
+        )}
+      </p>
+      {post.data.tags.length > 0 && (
+        <ul class="tags" aria-label="タグ">{post.data.tags.map((tag) => <li>{tag}</li>)}</ul>
+      )}
+    </header>
+    <div class="prose"><Content /></div>
+    <footer><a href={blogUrl()}>← 記事一覧へ戻る</a></footer>
+  </article>
+</BlogLayout>
+
+<style>
+  .back-link { font-size: 14px; }
+  .updated { display: inline-block; margin-left: 16px; }
+  .prose { padding: 24px 0; font-size: 16px; line-height: 1.95; }
+  .prose :global(h2) { margin: 40px 0 16px; font-size: 26px; line-height: 1.5; }
+  .prose :global(h3) { margin: 32px 0 12px; font-size: 21px; line-height: 1.5; }
+  .prose :global(p) { margin: 0 0 24px; }
+  .prose :global(li) { margin-block: 8px; }
+  .prose :global(img) { max-width: 100%; height: auto; border-radius: 6px; }
+  .prose :global(pre) { overflow-x: auto; padding: 20px; border-radius: 6px; font-size: 14px; line-height: 1.7; }
+  .prose :global(:not(pre) > code) { background: rgba(85, 116, 107, 0.1); padding: 2px 5px; border-radius: 3px; }
+  .prose :global(blockquote) { margin-inline: 0; border-left: 3px solid #55746b; padding-left: 20px; color: #53615c; }
+  .prose :global(table) { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+  .prose :global(th), .prose :global(td) { padding: 10px 16px; border: 1px solid rgba(32, 42, 39, 0.2); }
+  .prose :global(hr) { border: 0; border-top: 1px solid rgba(32, 42, 39, 0.2); margin: 32px 0; }
+  footer { padding-top: 24px; border-top: 1px solid rgba(32, 42, 39, 0.16); }
+  @media (max-width: 600px) { .updated { display: block; margin: 8px 0 0; } }
+</style>

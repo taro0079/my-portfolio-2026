@@ -1,0 +1,39 @@
+---
+import Layout from './Layout.astro';
+import background from '../assets/background.svg';
+interface Props { title: string; description: string; }
+const { title, description } = Astro.props;
+---
+
+<Layout title={`${title} | 森田太郎`} description={description}>
+  <img class="background" src={background.src} alt="" />
+  <main class="blog-shell"><slot /></main>
+</Layout>
+
+<style>
+  .background {
+    position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1;
+    object-fit: cover; opacity: 0.14; filter: blur(80px) saturate(0.65);
+  }
+  .blog-shell {
+    box-sizing: border-box; width: min(100%, 808px); margin: 0 auto;
+    padding: clamp(32px, 7vw, 88px) 24px; color: #202a27;
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    overflow-wrap: anywhere;
+  }
+  .blog-shell :global(h1) {
+    margin: 12px 0 16px; font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+    font-size: clamp(32px, 6vw, 48px); font-weight: 500; line-height: 1.45;
+  }
+  .blog-shell :global(a) { color: #34443e; text-underline-offset: 4px; }
+  .blog-shell :global(a:hover) { color: #16836b; }
+  .blog-shell :global(.eyebrow) {
+    margin: 0; color: #55746b; font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  }
+  .blog-shell :global(.page-header) { padding-bottom: 32px; border-bottom: 1px solid rgba(32, 42, 39, 0.2); }
+  .blog-shell :global(.description) { color: #53615c; line-height: 1.9; margin: 0; }
+  .blog-shell :global(.date) { color: #53615c; font-size: 14px; }
+  .blog-shell :global(.tags) { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 16px 0 0; list-style: none; }
+  .blog-shell :global(.tags li) { padding: 4px 10px; border-radius: 4px; background: rgba(85, 116, 107, 0.08); color: #55746b; font-size: 12px; }
+  @media (max-width: 600px) { .blog-shell { padding: 36px 20px; } }
+</style>
