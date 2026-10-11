@@ -1,0 +1,18 @@
+---
+title: SSGの選定
+description: ブログ作成にあたり静的サイトジェネレータの選定
+pubDate: 2026-10-11
+tags:
+  - dev
+draft: false
+---
+ざっくりSSGを調べると以下の通り。
+
+- jeykll: Ruby製
+- Hugo: Go製
+- Astro
+- Next.js
+
+jeykllとHugoはすぐにページを作れるが、デザインをカスタマイズするのが少し面倒。Next.jsはちょっとしたページを作るにはオーバスペックすぎる。Astroが良さそう。
+
+コンテンツの投稿にはOSSのPagesCMSが良さそう。
