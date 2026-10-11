@@ -1,41 +1,65 @@
 ---
-title: 'サンプル記事：Markdownで記事を書く'
-description: 'このブログの記事の書き方を紹介するサンプルです。見出し、リスト、コードをMarkdownで記述できます。'
+title: astroで作成したページをgithub pagesにデプロイする
+description: astroで作成したページをgithub pagesにデプロイする方法のメモ
 pubDate: 2026-10-11
-tags: ['Markdown', 'ブログ']
+tags:
+  - astro
+  - dev
 draft: false
 ---
+`astro.config.mjs` に以下を設定。
 
-この記事は、ブログの表示と記事の書き方を確認するためのサンプルです。不要になったら削除するか、`draft: true` に変更してください。
-
-## 記事を追加する
-
-`src/content/blog/` に Markdown ファイルを追加します。ファイル名が記事のURLになります。例えば `hello-world.md` はブログの `hello-world/` ページになります。
-
-ファイルの先頭に、記事の情報を記述します。
-
-```yaml
----
-title: '記事のタイトル'
-description: '記事の短い紹介文'
-pubDate: 2026-10-11
-tags: ['日記']
-draft: false
----
+```typescript
+export default defineConfig({
+  site: 'https://taro0079.github.io',
+  base: '/my-portfolio-2026',
+});
 ```
 
-## Markdownで本文を書く
 
-先頭の情報の下に本文を書きます。
 
-- `##` で見出しを作れます。
-- `-` で箇条書きを作れます。
-- **太字**や *斜体* で強調できます。
+github actionsでpush時に自動でデプロイするように設定。
 
-> 引用もこのように表示できます。
+`.github/workflows/deploy.yml`
 
-## 下書きと公開
+```yaml
+name: Deploy to GitHub Pages
 
-`draft: true` の記事は、記事一覧にも個別ページにも表示されません。公開するときは `draft: false` にして、サイトを再ビルド・デプロイしてください。
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
-記事を更新したときは、任意で `updatedDate` を追加すると更新日を表示できます。
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Install, build, and upload site
+        uses: withastro/action@v6
+        with:
+          node-version: 24
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+```
+
