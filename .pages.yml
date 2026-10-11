@@ -19,17 +19,19 @@ content:
         type: text
         required: true
       - name: pubDate
-        label: 公開日
+        label: 公開日時
         type: date
         required: true
         options:
-          format: yyyy-MM-dd
+          time: true
+          format: "yyyy-MM-dd'T'HH:mm:ssXXX"
       - name: updatedDate
-        label: 更新日
+        label: 更新日時
         type: date
         default: ''
         options:
-          format: yyyy-MM-dd
+          time: true
+          format: "yyyy-MM-dd'T'HH:mm:ssXXX"
       - name: tags
         label: タグ
         type: string
