@@ -1,33 +1,64 @@
 ---
-import BlogLayout from '../../layouts/BlogLayout.astro';
-import { blogUrl, formatDate, getPublishedPosts } from '../../lib/blog';
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import { blogUrl, formatDate, getPublishedPosts } from "../../lib/blog";
 const posts = await getPublishedPosts();
 ---
 
-<BlogLayout title="ブログ" description="森田太郎のブログ記事一覧。">
+<BlogLayout title="Memo" description="memos">
   <header class="page-header">
-    <p class="eyebrow">BLOG</p><h1>ブログ</h1><p class="description">記事一覧</p>
+    <h1>Memo</h1><p class="description">memos</p>
   </header>
-  {posts.length > 0 ? (
-    <ul class="post-list">
-      {posts.map((post) => (
-        <li><article>
-          <time class="date" datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
-          <h2><a href={blogUrl(post.id)}>{post.data.title}</a></h2>
-          <p class="description">{post.data.description}</p>
-          {post.data.tags.length > 0 && (
-            <ul class="tags" aria-label="タグ">{post.data.tags.map((tag) => <li>{tag}</li>)}</ul>
-          )}
-        </article></li>
-      ))}
-    </ul>
-  ) : <p class="empty">公開記事はまだありません。</p>}
+  {
+    posts.length > 0 ? (
+      <ul class="post-list">
+        {posts.map((post) => (
+          <li>
+            <article>
+              <time class="date" datetime={post.data.pubDate.toISOString()}>
+                {formatDate(post.data.pubDate)}
+              </time>
+              <h2>
+                <a href={blogUrl(post.id)}>{post.data.title}</a>
+              </h2>
+              <p class="description">{post.data.description}</p>
+              {post.data.tags.length > 0 && (
+                <ul class="tags" aria-label="タグ">
+                  {post.data.tags.map((tag) => (
+                    <li>{tag}</li>
+                  ))}
+                </ul>
+              )}
+            </article>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty">公開記事はまだありません。</p>
+    )
+  }
 </BlogLayout>
 
 <style>
-  .post-list { list-style: none; padding: 0; margin: 0; }
-  .post-list > li { padding: 32px 0; border-bottom: 1px solid rgba(32, 42, 39, 0.16); }
-  h2 { margin: 10px 0 12px; font-size: 24px; line-height: 1.6; font-weight: 600; }
-  h2 a { text-decoration-color: rgba(85, 116, 107, 0.38); }
-  .empty { padding-block: 32px; color: #53615c; }
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .post-list > li {
+    padding: 32px 0;
+    border-bottom: 1px solid rgba(32, 42, 39, 0.16);
+  }
+  h2 {
+    margin: 10px 0 12px;
+    font-size: 24px;
+    line-height: 1.6;
+    font-weight: 600;
+  }
+  h2 a {
+    text-decoration-color: rgba(85, 116, 107, 0.38);
+  }
+  .empty {
+    padding-block: 32px;
+    color: #53615c;
+  }
 </style>

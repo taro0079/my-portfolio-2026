@@ -1,10 +1,13 @@
 ---
-interface Props { title?: string; description?: string; }
+interface Props {
+  title?: string;
+  description?: string;
+}
 const {
-  title = '森田太郎 | プロフィール・論文',
-  description = '森田太郎のプロフィール、論文、ブログ。',
+  title = "awesometaro | publications, memos",
+  description = "publications, memos",
 } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const blogActive = Astro.url.pathname.startsWith(`${base}/blog`);
 ---
 
@@ -13,16 +16,27 @@ const blogActive = Astro.url.pathname.startsWith(`${base}/blog`);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.svg`} />
-    <link rel="icon" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/favicon.ico`} />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/favicon.svg`}
+    />
+    <link
+      rel="icon"
+      href={`${import.meta.env.BASE_URL.replace(/\/$/, "")}/favicon.ico`}
+    />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title}</title>
   </head>
   <body>
     <nav class="site-nav" aria-label="メインナビゲーション">
-      <a href={`${base}/`} aria-current={!blogActive ? 'page' : undefined}>プロフィール</a>
-      <a href={`${base}/blog/`} aria-current={blogActive ? 'page' : undefined}>ブログ</a>
+      <a href={`${base}/`} aria-current={!blogActive ? "page" : undefined}
+        >About</a
+      >
+      <a href={`${base}/blog/`} aria-current={blogActive ? "page" : undefined}
+        >Memo</a
+      >
     </nav>
     <slot />
   </body>
@@ -36,13 +50,34 @@ const blogActive = Astro.url.pathname.startsWith(`${base}/blog`);
     height: 100%;
   }
   .site-nav {
-    display: flex; gap: 24px; box-sizing: border-box;
-    width: min(100%, 808px); margin: 0 auto; padding: 24px 24px 0;
-    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif; font-size: 14px;
+    display: flex;
+    gap: 24px;
+    box-sizing: border-box;
+    width: min(100%, 808px);
+    margin: 0 auto;
+    padding: 24px 24px 0;
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    font-size: 14px;
   }
-  .site-nav a { color: #53615c; text-decoration: none; padding-bottom: 6px; }
-  .site-nav a[aria-current] { color: #202a27; border-bottom: 2px solid #55746b; }
-  .site-nav a:hover { color: #16836b; }
-  :global(a:focus-visible) { outline: 2px solid #16836b; outline-offset: 4px; }
-  @media (max-width: 600px) { .site-nav { padding-inline: 20px; } }
+  .site-nav a {
+    color: #53615c;
+    text-decoration: none;
+    padding-bottom: 6px;
+  }
+  .site-nav a[aria-current] {
+    color: #202a27;
+    border-bottom: 2px solid #55746b;
+  }
+  .site-nav a:hover {
+    color: #16836b;
+  }
+  :global(a:focus-visible) {
+    outline: 2px solid #16836b;
+    outline-offset: 4px;
+  }
+  @media (max-width: 600px) {
+    .site-nav {
+      padding-inline: 20px;
+    }
+  }
 </style>
