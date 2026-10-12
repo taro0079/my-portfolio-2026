@@ -2,6 +2,8 @@
 title: xで見つけた選書リスト
 description: 東北大学が出している選書リスト
 pubDate: 2026-10-12T10:14:00Z
-draft: true
+tags:
+  - book
+draft: false
 ---
 [https://www.las.tohoku.ac.jp/kkyoikuin/wp-content/uploads/2026/01/8e3d7103bc1d0c5290bf3dedb1ff091e.pdf](https://www.las.tohoku.ac.jp/kkyoikuin/wp-content/uploads/2026/01/8e3d7103bc1d0c5290bf3dedb1ff091e.pdf)
