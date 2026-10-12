@@ -8,7 +8,7 @@ content:
     type: collection
     path: src/content/blog
     format: yaml-frontmatter
-    filename: '{primary}.md'
+    filename: "{year}-{month}-{day}-{title}.md"
     fields:
       - name: title
         label: タイトル
