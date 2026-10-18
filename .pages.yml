@@ -8,8 +8,15 @@ content:
     type: collection
     path: src/content/blog
     format: yaml-frontmatter
-    filename: "{year}-{month}-{day}-{title}.md"
+    filename:
+        template: "{fields.id.md}"
+        field: false
     fields:
+      - name: id
+        type: uuid
+        label: ID
+        options:
+          editable: false
       - name: title
         label: タイトル
         type: string
